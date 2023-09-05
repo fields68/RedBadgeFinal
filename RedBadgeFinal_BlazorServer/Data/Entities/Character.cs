@@ -12,11 +12,15 @@ namespace RedBadgeFinal_BlazorServer.Data.Entities
         
         [ForeignKey(nameof(ElementId))]
         public virtual Element Element { get; set; } = null!;
-        
-        public int CWId { get; set; }
+        public int WeaponId { get; set; }
 
-        [ForeignKey(nameof(CWId))]
-        public virtual CharacterWeapon CharacterWeapon { get; set; } = null!;
+        [ForeignKey(nameof(WeaponId))]
+        public virtual Weapon Weapon { get; set; } = null!;
+
+        //public int CWId { get; set; }
+
+        //[ForeignKey(nameof(CWId))]
+        //public virtual CharacterWeapon CharacterWeapon { get; set; } = null!;
 
         public int RegionId { get; set; }
 

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -21,6 +21,11 @@
     <ProjectReference Include="..\RedBadgeFinal.Data\RedBadgeFinal.Data.csproj" />
     <ProjectReference Include="..\RedBadgeFinal.Models\RedBadgeFinal.Models.csproj" />
     <ProjectReference Include="..\RedBadgeFinal.Services\RedBadgeFinal.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\WeaponPages\" />
+    <Folder Include="Pages\RegionPages\" />
   </ItemGroup>
 
 </Project>

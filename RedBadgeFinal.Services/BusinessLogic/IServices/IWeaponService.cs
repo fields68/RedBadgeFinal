@@ -2,7 +2,7 @@
 
 namespace RedBadgeFinal.Services.BusinessLogic.IServices
 {
-    internal interface IWeaponService
+    public interface IWeaponService
     {
         Task<bool> CreateWeapon(WeaponCreate model);
         Task<WeaponDetail> GetWeapon(int id);

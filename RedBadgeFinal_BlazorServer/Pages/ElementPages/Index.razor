@@ -1,0 +1,47 @@
+﻿@page "/element"
+
+@inject IElementService _elementService
+
+<h3>Elements</h3>
+<a href="/element/create" class="btn btn-primary">Create an Element</a>
+<hr />
+
+@if (Elements.Count() > 0)
+{
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Type</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var element in Elements)
+			{
+				<tr>
+					<td>@element.Id</td>
+					<td>@element.Type</td>
+					<td>
+						<a href="/element/edit/@element.Id" class="btn btn-success">Edit</a>
+						<a href="/element/delete/@element.Id" class="btn btn-danger">Delete</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+else
+{
+	<p class="text-danger">Sorry, there are no avilable Elements at this time.</p>
+}
+@code {
+
+	public List<ElementListItem> Elements = new();
+
+	protected override async Task OnInitializedAsync()
+	{
+		Elements = await _elementService.GetElements();
+	}
+
+}

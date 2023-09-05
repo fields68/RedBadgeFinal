@@ -1,0 +1,39 @@
+﻿@page "/character"
+
+@attribute [Authorize]
+@inject ICharacterService _characterService
+
+<h3>Characters</h3>
+<hr />
+
+@if (Characters.Count() > 0)
+{
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+
+		</tbody>
+	</table>
+}
+else
+{
+	<p class="text-danger">Sorry, there are no Avilable Characters at this time.</p>
+}
+
+
+@code {
+
+	public List<CharacterListItem> Characters = new();
+
+	protected override async Task OnInitializedAsync()
+	{
+		Characters = await _characterService.GetCharacters();
+	}
+
+}

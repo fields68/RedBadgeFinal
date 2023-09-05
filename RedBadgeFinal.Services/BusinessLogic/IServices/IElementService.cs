@@ -2,7 +2,7 @@
 
 namespace RedBadgeFinal.Services.BusinessLogic.IServices
 {
-    internal interface IElementService
+    public interface IElementService
     {
         Task<bool> CreateElement (ElementCreate model);
         Task<ElementDetail> GetElement(int id);

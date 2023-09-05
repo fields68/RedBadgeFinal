@@ -3,7 +3,7 @@ using RedBadgeFinal.Data.Data;
 using RedBadgeFinal.Data.Entities;
 using RedBadgeFinal.Models.WeaponModels;
 using RedBadgeFinal.Services.BusinessLogic.IServices;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace RedBadgeFinal.Services.BusinessLogic
 {

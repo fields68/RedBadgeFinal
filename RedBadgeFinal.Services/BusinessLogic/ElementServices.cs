@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using RedBadgeFinal.Data.Data;
 using RedBadgeFinal.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using RedBadgeFinal.Models.ElementModels;
 using RedBadgeFinal.Services.BusinessLogic.IServices;
-using System.Data.Entity;
 
 namespace RedBadgeFinal.Services.BusinessLogic
 {

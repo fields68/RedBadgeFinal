@@ -2,7 +2,7 @@
 
 namespace RedBadgeFinal.Services.BusinessLogic.IServices
 {
-    internal interface ICharacterService
+    public interface ICharacterService
     {
         Task<bool> CreateCharacter(CharacterCreate model);
         Task<bool> UpdateCharacter(CharacterEdit model);

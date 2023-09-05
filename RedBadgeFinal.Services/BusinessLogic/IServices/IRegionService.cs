@@ -2,7 +2,7 @@
 
 namespace RedBadgeFinal.Services.BusinessLogic.IServices
 {
-    internal interface IRegionService
+    public interface IRegionService
     {
         Task<bool> CreateRegion(RegionCreate model);
         Task<RegionDetail> GetRegion(int id);

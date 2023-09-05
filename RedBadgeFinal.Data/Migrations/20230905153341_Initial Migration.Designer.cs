@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using RedBadgeFinal_BlazorServer.Data;
+using RedBadgeFinal.Data.Data;
 
 #nullable disable
 
-namespace RedBadgeFinal_BlazorServer.Data.Migrations
+namespace RedBadgeFinal.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230905134613_Initial Migration")]
+    [Migration("20230905153341_Initial Migration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -227,7 +227,7 @@ namespace RedBadgeFinal_BlazorServer.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("RedBadgeFinal_BlazorServer.Data.Entities.Character", b =>
+            modelBuilder.Entity("RedBadgeFinal.Data.Entities.Character", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -267,7 +267,7 @@ namespace RedBadgeFinal_BlazorServer.Data.Migrations
                     b.ToTable("Characters");
                 });
 
-            modelBuilder.Entity("RedBadgeFinal_BlazorServer.Data.Entities.Element", b =>
+            modelBuilder.Entity("RedBadgeFinal.Data.Entities.Element", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -284,7 +284,7 @@ namespace RedBadgeFinal_BlazorServer.Data.Migrations
                     b.ToTable("Elements");
                 });
 
-            modelBuilder.Entity("RedBadgeFinal_BlazorServer.Data.Entities.Region", b =>
+            modelBuilder.Entity("RedBadgeFinal.Data.Entities.Region", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -301,7 +301,7 @@ namespace RedBadgeFinal_BlazorServer.Data.Migrations
                     b.ToTable("Regions");
                 });
 
-            modelBuilder.Entity("RedBadgeFinal_BlazorServer.Data.Entities.Weapon", b =>
+            modelBuilder.Entity("RedBadgeFinal.Data.Entities.Weapon", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -369,21 +369,21 @@ namespace RedBadgeFinal_BlazorServer.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RedBadgeFinal_BlazorServer.Data.Entities.Character", b =>
+            modelBuilder.Entity("RedBadgeFinal.Data.Entities.Character", b =>
                 {
-                    b.HasOne("RedBadgeFinal_BlazorServer.Data.Entities.Element", "Element")
+                    b.HasOne("RedBadgeFinal.Data.Entities.Element", "Element")
                         .WithMany()
                         .HasForeignKey("ElementId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RedBadgeFinal_BlazorServer.Data.Entities.Region", "Region")
+                    b.HasOne("RedBadgeFinal.Data.Entities.Region", "Region")
                         .WithMany()
                         .HasForeignKey("RegionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RedBadgeFinal_BlazorServer.Data.Entities.Weapon", "Weapon")
+                    b.HasOne("RedBadgeFinal.Data.Entities.Weapon", "Weapon")
                         .WithMany()
                         .HasForeignKey("WeaponId")
                         .OnDelete(DeleteBehavior.Cascade)

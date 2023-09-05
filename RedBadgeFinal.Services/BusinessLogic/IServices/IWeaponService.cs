@@ -1,10 +1,4 @@
-﻿using RedBadgeFinal.Models.RegionModels;
-using RedBadgeFinal.Models.WeaponModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RedBadgeFinal.Models.WeaponModels;
 
 namespace RedBadgeFinal.Services.BusinessLogic.IServices
 {

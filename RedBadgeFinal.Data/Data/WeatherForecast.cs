@@ -1,4 +1,6 @@
-namespace RedBadgeFinal_BlazorServer.Data
+
+
+namespace RedBadgeFinal.Data.Data
 {
     public class WeatherForecast
     {

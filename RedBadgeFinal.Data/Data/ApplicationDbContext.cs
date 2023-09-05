@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using RedBadgeFinal.Data.Entities;
 
-namespace RedBadgeFinal_BlazorServer.Data
+namespace RedBadgeFinal.Data.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {

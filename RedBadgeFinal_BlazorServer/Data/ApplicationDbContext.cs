@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using RedBadgeFinal_BlazorServer.Data.Entities;
+using RedBadgeFinal.Data.Entities;
 
 namespace RedBadgeFinal_BlazorServer.Data
 {

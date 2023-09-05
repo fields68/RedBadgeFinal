@@ -1,8 +1,9 @@
-﻿namespace RedBadgeFinal_BlazorServer.Data.Entities
+﻿namespace RedBadgeFinal.Models.RegionModels
 {
-    public class Region
+    public class RegionDetail
     {
         public int Id { get; set; }
+
         public string Name { get; set; } = null!;
     }
 }

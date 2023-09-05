@@ -1,12 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace RedBadgeFinal_BlazorServer.Data.Entities
+namespace RedBadgeFinal.Data.Entities
 {
     public class Character
     {
+        [Key]
         public int Id { get; set; }
+
+        [Required]
         public string OwnerId { get; set; } = null!;
+
+        [Required]
         public string Name { get; set; } = null!;
+
+        [Required]
         public string Description { get; set; } = null!;
         public int ElementId { get; set; }
         

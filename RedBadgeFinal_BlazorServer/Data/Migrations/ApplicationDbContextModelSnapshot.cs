@@ -261,7 +261,7 @@ namespace RedBadgeFinal_BlazorServer.Data.Migrations
 
                     b.HasIndex("WeaponId");
 
-                    b.ToTable("Characters");
+                    b.ToTable("Characters", (string)null);
                 });
 
             modelBuilder.Entity("RedBadgeFinal_BlazorServer.Data.Entities.Element", b =>
@@ -278,7 +278,7 @@ namespace RedBadgeFinal_BlazorServer.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Elements");
+                    b.ToTable("Elements", (string)null);
                 });
 
             modelBuilder.Entity("RedBadgeFinal_BlazorServer.Data.Entities.Region", b =>
@@ -295,7 +295,7 @@ namespace RedBadgeFinal_BlazorServer.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Regions");
+                    b.ToTable("Regions", (string)null);
                 });
 
             modelBuilder.Entity("RedBadgeFinal_BlazorServer.Data.Entities.Weapon", b =>
@@ -312,7 +312,7 @@ namespace RedBadgeFinal_BlazorServer.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Weapons");
+                    b.ToTable("Weapons", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

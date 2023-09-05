@@ -1,8 +1,9 @@
-﻿namespace RedBadgeFinal_BlazorServer.Data.Entities
+﻿namespace RedBadgeFinal.Models.ElementModels
 {
-    public class Element
+    public class ElementListItem
     {
         public int Id { get; set; }
+
         public string Type { get; set; } = null!;
     }
 }

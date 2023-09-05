@@ -20,7 +20,6 @@ namespace RedBadgeFinal.Data.Data
 		{
 			base.OnModelCreating(builder);
             builder.Entity<Element>().HasData(
-
                     new Element
                     { 
                         Id = 1,
@@ -55,6 +54,70 @@ namespace RedBadgeFinal.Data.Data
 					{
 						Id = 7,
 						Type = "Pyro"
+					}
+				);
+			builder.Entity<Region>().HasData(
+					new Region
+					{
+						Id = 1,
+						Name = "Mondstadt",
+					},
+					new Region
+					{
+						Id = 2,
+						Name = "Liyue",
+					},
+					new Region
+					{
+						Id = 3,
+						Name = "Inazuma",
+					},
+					new Region
+					{
+						Id = 4,
+						Name = "Sumeru",
+					},
+					new Region
+					{
+						Id = 5,
+						Name = "Fontaine",
+					},
+					new Region
+					{
+						Id = 6,
+						Name = "Natlan",
+					},
+					new Region
+					{
+						Id = 7,
+						Name = "Snezhnaya",
+					}
+				);
+			builder.Entity<Weapon>().HasData(
+					new Weapon
+					{
+						Id = 1,
+						Type = "Swords"
+					},
+					new Weapon
+					{
+						Id = 2,
+						Type = "Claymores"
+					},
+					new Weapon
+					{
+						Id = 3,
+						Type = "Polearms"
+					},
+					new Weapon
+					{
+						Id = 4,
+						Type = "Catalyst"
+					},
+					new Weapon
+					{
+						Id = 5,
+						Type = "Bows"
 					}
 				);
 		}

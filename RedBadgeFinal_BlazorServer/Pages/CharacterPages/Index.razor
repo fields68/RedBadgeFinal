@@ -4,6 +4,7 @@
 @inject ICharacterService _characterService
 
 <h3>Characters</h3>
+<a href="/character/create" class="btn btn-primary">Create a Character</a>
 <hr />
 
 @if (Characters.Count() > 0)
@@ -13,23 +14,41 @@
 			<tr>
 				<th>Id</th>
 				<th>Name</th>
+				<th>Description</th>
+				<th>Weapon</th>
+				<th>Region</th>
+				<th>Element</th>
 				<th></th>
 			</tr>
 		</thead>
 		<tbody>
-
+			@foreach (var character in Characters)
+			{
+				<tr>
+					<td>@character.Id</td>
+					<td>@character.Name</td>
+					<td>@character.Description</td>
+					<td>@character.WeaponId</td>
+					<td>@character.RegionId</td>
+					<td>@character.ElementId</td>
+					<td>
+						<a href="/character/edit/@character.Id" class="btn btn-success">Edit</a>
+						<a href="/character/delete/@character.Id" class="btn btn-danger">Delete</a>
+					</td>
+				</tr>
+			}
 		</tbody>
 	</table>
 }
 else
 {
-	<p class="text-danger">Sorry, there are no Avilable Characters at this time.</p>
+	<p class="text-danger">Sorry, there are no avilable Characters at this time.</p>
 }
 
 
 @code {
 
-	public List<CharacterListItem> Characters = new();
+	private List<CharacterListItem> Characters = new();
 
 	protected override async Task OnInitializedAsync()
 	{

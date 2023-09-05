@@ -21,12 +21,12 @@ namespace RedBadgeFinal.Services.BusinessLogic
             _mapper = mapper;
 
             var userClaims = httpContextAccessor.HttpContext!.User.Identity as ClaimsIdentity;
-            var value = userClaims!.FindFirst("id")?.Value;
 
-            _ownerId = value!;
+            var value = userClaims!.Claims.FirstOrDefault();
+            _ownerId = value!.Value;
 
             if (_ownerId == null)
-                throw new Exception("user is not signed in!!!");
+                throw new Exception("User is not signed in!!!");
         }
 
         public async Task<bool> CreateCharacter(CharacterCreate model)

@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedBadgeFinal_BlazorServer"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedBadgeFinal.Data", "RedBadgeFinal.Data\RedBadgeFinal.Data.csproj", "{8FE1705E-0A88-460A-814F-32B7564EB43B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedBadgeFinal.Models", "RedBadgeFinal.Models\RedBadgeFinal.Models.csproj", "{3F71D72F-1C43-46BB-904B-275E0EE64596}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedBadgeFinal.Models", "RedBadgeFinal.Models\RedBadgeFinal.Models.csproj", "{3F71D72F-1C43-46BB-904B-275E0EE64596}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedBadgeFinal.Services", "RedBadgeFinal.Services\RedBadgeFinal.Services.csproj", "{C4653F00-3FEF-4F16-BFEF-15BE58D7DB3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedBadgeFinal.Services", "RedBadgeFinal.Services\RedBadgeFinal.Services.csproj", "{C4653F00-3FEF-4F16-BFEF-15BE58D7DB3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

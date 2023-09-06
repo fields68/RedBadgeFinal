@@ -25,7 +25,18 @@ namespace RedBadgeFinal.Services.BusinessLogic
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<RegionDetail> GetRegion(int id)
+		public async Task<bool> DeleteRegion(int id)
+		{
+			var region = await _context.Regions
+				.FirstOrDefaultAsync(e => e.Id == id);
+
+			if (region == null) return false;
+
+			_context.Regions.Remove(region);
+			return await _context.SaveChangesAsync() == 1;
+		}
+
+		public async Task<RegionDetail> GetRegion(int id)
         {
             var region = await _context.Regions.FindAsync(id);
             if (region is null) return new RegionDetail();
@@ -38,5 +49,19 @@ namespace RedBadgeFinal.Services.BusinessLogic
             var regions = await _context.Regions.ToListAsync();
             return _mapper.Map<List<RegionListItem>>(regions);
         }
-    }
+
+		public async Task<bool> UpdateRegion(RegionEdit model)
+		{
+			var region = await _context.Regions
+				.SingleOrDefaultAsync(e => e.Id == model.Id);
+
+			if (region is null) return false;
+
+			region.Id = model.Id;
+			region.Name = model.Name;
+			await _context.SaveChangesAsync();
+
+			return true;
+		}
+	}
 }

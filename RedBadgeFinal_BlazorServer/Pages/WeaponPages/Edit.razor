@@ -1,5 +1,56 @@
-﻿<h3>Edit</h3>
+﻿@page "/weapon/edit/{WeaponId:int}"
+
+@inject IWeaponService _weaponService
+@inject NavigationManager _navManager
+
+<h3>Edit Weapons:</h3>
+<hr />
+
+@if (errorMessage != null)
+{
+	<h5 class="text-danger">@errorMessage</h5>
+}
+else
+{
+	<div class="container">
+		<EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+			<DataAnnotationsValidator />
+			<ValidationSummary />
+			<div class="form-group">
+				<label>Weapon Type:</label>
+				<InputText class="form-control" @bind-Value="model.Type" />
+			</div>
+			<button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+			<a href="/weapon" class="btn btn-secondary btn-block mt-5">Back to List</a>
+			<a href="/weapon/delete/@WeaponId" class="btn btn-danger btn-block mt-5">Delete</a>
+		</EditForm>
+	</div>
+}
 
 @code {
+	[Parameter]
+	public int WeaponId { get; set; }
+	private WeaponEdit model = new();
+	private WeaponDetail _weaponDetail = new();
 
+	private string? errorMessage;
+
+	protected override async Task OnInitializedAsync()
+	{
+		_weaponDetail = await _weaponService.GetWeapon(WeaponId);
+
+		if (_weaponDetail != null)
+		{
+			model.Id = _weaponDetail.Id;
+			model.Type = _weaponDetail.Type;
+		}
+	}
+	public async Task HandleSubmit()
+	{
+		var isSuccess = await _weaponService.UpdateWeapon(model);
+		if (isSuccess)
+			_navManager.NavigateTo("/weapon");
+		else
+			errorMessage = "Could not Update your Weapon right now. Please try again.";
+	}
 }

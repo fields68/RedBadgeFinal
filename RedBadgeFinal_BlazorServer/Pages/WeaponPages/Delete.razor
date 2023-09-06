@@ -1,5 +1,57 @@
-﻿<h3>Delete</h3>
+﻿@page "/weapon/delete/{WeaponId:int}"
+
+@inject IWeaponService _weaponService
+@inject NavigationManager _navManager
+
+<h3>Delete Weapon:</h3>
+<h4 class="text-danger">Are you sure you want to DELETE this Weapon?</h4>
+<hr />
+
+@if (errorMessage != null)
+{
+	<p class="text-danger">@errorMessage</p>
+}
+
+@if (weaponDetail is null)
+{
+	<p class="text-warning">Sorry, there isn't any available info.</p>
+}
+else
+{
+	<div class="container">
+		<div class="card">
+			<div class="card-header d-flex justify-content-between">
+				<span>Weapon #@weaponDetail.Id</span>
+				<span class="text-muted">@weaponDetail.Type</span>
+			</div>
+		</div>
+	</div>
+
+	<EditForm Model="@weaponDetail" OnValidSubmit="@DeleteWeapon">
+		<button type="submit" class="btn btn-danger m-3">Delete</button>
+	</EditForm>
+}
 
 @code {
+	[Parameter]
+	public int WeaponId { get; set; }
 
+	public WeaponDetail? weaponDetail { get; set; }
+	public string? errorMessage { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		weaponDetail = await _weaponService.GetWeapon(WeaponId);
+	}
+
+	public async Task DeleteWeapon()
+	{
+		var isSuccess = await _weaponService.DeleteWeapon(WeaponId);
+		if (isSuccess)
+			_navManager.NavigateTo("/weapon");
+		else
+		{
+			errorMessage = "Deletion Failed.";
+		}
+	}
 }

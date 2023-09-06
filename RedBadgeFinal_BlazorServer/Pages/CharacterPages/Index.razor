@@ -2,6 +2,9 @@
 
 @attribute [Authorize]
 @inject ICharacterService _characterService
+@inject IElementService _elementService
+@inject IWeaponService _weaponService
+@inject IRegionService _regionService
 
 <h3>Characters</h3>
 <a href="/character/create" class="btn btn-primary">Create a Character</a>
@@ -15,22 +18,26 @@
 				<th>Id</th>
 				<th>Name</th>
 				<th>Description</th>
+				<th>Element</th>
 				<th>Weapon</th>
 				<th>Region</th>
-				<th>Element</th>
 				<th></th>
 			</tr>
 		</thead>
 		<tbody>
 			@foreach (var character in Characters)
 			{
+				
 				<tr>
 					<td>@character.Id</td>
 					<td>@character.Name</td>
 					<td>@character.Description</td>
+					<td>@GetElemInfo(character.ElementId)</td>
+					<td>@GetWeapInfo(character.WeaponId)</td>
+					<td>@GetRegiInfo(character.RegionId)</td>
+					@*<td>@character.ElementId</td>
 					<td>@character.WeaponId</td>
-					<td>@character.RegionId</td>
-					<td>@character.ElementId</td>
+					<td>@character.RegionId</td>*@
 					<td>
 						<a href="/character/edit/@character.Id" class="btn btn-success">Edit</a>
 						<a href="/character/delete/@character.Id" class="btn btn-danger">Delete</a>
@@ -47,13 +54,69 @@ else
 
 
 @code {
-	private ElementDetail? elementDetail { get; set; }
 
 	private List<CharacterListItem> Characters = new();
+	public List<ElementListItem> Elements = new();
+	public List<WeaponListItem> Weapons = new();
+	public List<RegionListItem> Regions = new();
 
 	protected override async Task OnInitializedAsync()
 	{
 		Characters = await _characterService.GetCharacters();
+		Elements = await _elementService.GetElements();
+		Weapons = await _weaponService.GetWeapons();
+		Regions = await _regionService.GetRegions();
+	}
+
+	public string GetWeapInfo(int id)
+	{
+		var weaponType = "";
+
+		foreach (var weapon in Weapons)
+		{
+			if (weapon.Id == id)
+			{
+				weaponType = weapon.Type;
+				break;
+			}
+			else
+				weaponType = "N/A";
+		}
+		return weaponType;
+	}
+
+	public string GetRegiInfo(int id)
+	{
+		var regionName = "";
+
+		foreach (var region in Regions)
+		{
+			if (region.Id == id)
+			{
+				regionName = region.Name;
+				break;
+			}
+			else
+				regionName = "N/A";
+		}
+		return regionName;
+	}
+
+	public string GetElemInfo(int id)
+	{
+		var elementType = "";
+
+		foreach (var element in Elements)
+		{
+			if (element.Id == id)
+			{
+				elementType = element.Type;
+				break;
+			}
+			else
+				elementType = "N/A";
+		}
+		return elementType;
 	}
 
 }

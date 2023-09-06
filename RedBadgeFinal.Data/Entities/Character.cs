@@ -17,12 +17,12 @@ namespace RedBadgeFinal.Data.Entities
         [Required]
         public string Description { get; set; } = null!;
         public int ElementId { get; set; }
-        
-        [ForeignKey(nameof(ElementId))]
+
+		[ForeignKey(nameof(ElementId))]
         public virtual Element Element { get; set; } = null!;
         public int WeaponId { get; set; }
 
-        [ForeignKey(nameof(WeaponId))]
+		[ForeignKey(nameof(WeaponId))]
         public virtual Weapon Weapon { get; set; } = null!;
 
         //public int CWId { get; set; }
@@ -32,7 +32,7 @@ namespace RedBadgeFinal.Data.Entities
 
         public int RegionId { get; set; }
 
-        [ForeignKey(nameof(RegionId))]
+		[ForeignKey(nameof(RegionId))]
         public virtual Region Region { get; set; } = null!;
 
 

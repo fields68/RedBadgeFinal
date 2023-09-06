@@ -22,9 +22,4 @@
     <ProjectReference Include="..\RedBadgeFinal.Services\RedBadgeFinal.Services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\WeaponPages\" />
-    <Folder Include="Pages\RegionPages\" />
-  </ItemGroup>
-
 </Project>

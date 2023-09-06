@@ -1,0 +1,56 @@
+﻿@page "/element/edit/{ElementId:int}"
+
+@inject IElementService _elementService
+@inject NavigationManager _navManager
+
+<h3>Edit Element:</h3>
+<hr />
+
+@if (errorMessage != null)
+{
+	<h5 class="text-danger">@errorMessage</h5>
+}
+else
+{
+	<div class="container">
+		<EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+			<DataAnnotationsValidator />
+			<ValidationSummary />
+			<div class="form-group">
+				<label>Element Type:</label>
+				<InputText class="form-control" @bind-Value="model.Type" />
+			</div>
+			<button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+			<a href="/element" class="btn btn-secondary btn-block mt-5">Back to List</a>
+			<a href="/element/delete/@ElementId" class="btn btn-danger btn-block mt-5">Delete</a>
+		</EditForm>
+	</div>
+}
+
+@code{
+	[Parameter]
+	public int ElementId { get; set; }
+	private ElementEdit model = new();
+	private ElementDetail _elementDetail = new();
+
+	private string? errorMessage;
+
+	protected override async Task OnInitializedAsync()
+	{
+		_elementDetail = await _elementService.GetElement(ElementId);
+
+		if (_elementDetail != null)
+		{
+			model.Id = _elementDetail.Id;
+			model.Type = _elementDetail.Type;
+		}
+	}
+	public async Task HandleSubmit()
+	{
+		var isSuccess = await _elementService.UpdateElement(model);
+		if (isSuccess)
+			_navManager.NavigateTo("/element");
+		else
+			errorMessage = "Could not Update your Element right now. Please try again.";
+	}
+}

@@ -1,0 +1,40 @@
+﻿@page "/weapon/create"
+
+@inject IWeaponService _weaponService
+@inject NavigationManager _navManager
+
+<h3>Weapons</h3>
+<hr />
+
+@if (errorMessage != null)
+{
+	<h5 class="text-danger">@errorMessage</h5>
+}
+else
+{
+	<div class="container">
+		<EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+			<DataAnnotationsValidator />
+			<ValidationSummary />
+			<div class="form-group">
+				<label>Weapon Type:</label>
+				<InputText class="form-control" @bind-Value="model.Type" />
+			</div>
+			<button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+		</EditForm>
+	</div>
+}
+
+@code {
+	private WeaponCreate model = new();
+	private string? errorMessage;
+
+	public async Task HandleSubmit()
+	{
+		var isSuccess = await _weaponService.CreateWeapon(model);
+		if (isSuccess)
+			_navManager.NavigateTo("/weapon");
+		else
+			errorMessage = "Could not create your Weapon right now. Please try again later.";
+	}
+}

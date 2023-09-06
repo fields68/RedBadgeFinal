@@ -1,0 +1,38 @@
+﻿@page "/character/edit/{CharacterId:int}"
+
+@attribute [Authorize]
+@inject ICharacterService _characterService
+@inject IElementService _elementService
+@inject IRegionService _regionService
+@inject IWeaponService _weaponService
+@inject NavigationManager _navManager
+
+<h3>Edit</h3>
+<hr />
+
+@code {
+	[Parameter]
+	public int CharacterId { get; set; }
+	private CharacterEdit model = new();
+	private CharacterDetail _characterDetail = new();
+
+	private List<ElementListItem>? Elements;
+	private List<RegionListItem>? Regions;
+	private List<WeaponListItem>? Weapons;
+
+	private string? errorMessage;
+
+	protected override async Task OnInitializedAsync()
+	{
+		_characterDetail = await _characterService.GetCharacter(CharacterId);
+
+		if (_characterDetail != null)
+		{
+			model.Id = _characterDetail.Id;
+			model.Name = _characterDetail.Name;
+			model.Description = _characterDetail.Description;
+			//model.Weapon = _characterDetail.Weapon;
+
+		}
+	}
+}

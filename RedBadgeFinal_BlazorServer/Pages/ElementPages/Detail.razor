@@ -1,0 +1,40 @@
+﻿@page "/element/detail/{ElementId:int}"
+
+@inject IElementService _elementService
+@inject NavigationManager _navManager
+
+<h3>Element Details:</h3>
+<hr />
+
+@if (elementDetail is null)
+{
+	<p class="text-warning">Sorry, there isn't any available info.</p>
+}
+else
+{
+	<div class="container">
+		<div class="card">
+			<div class="card-header d-flex justify-content-between">
+				<span>Element #@elementDetail.Id</span>
+				<span class="text-muted">@elementDetail.Type</span>
+			</div>
+		</div>
+		<div class="d-flex justify-content-center mt-3">
+			<div class="text-center justify-content-between w-25">
+				<a href="/element/edit/@elementDetail.Id" class="btn btn-outline-primary">Edit</a>
+				<a href="/element/delete/@elementDetail.Id" class="btn btn-outline-danger">Delete</a>
+			</div>
+		</div>
+	</div>
+}
+
+@code {
+	[Parameter]
+	public int ElementId { get; set; }
+	private ElementDetail? elementDetail { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		elementDetail = await _elementService.GetElement(ElementId);
+	}
+}

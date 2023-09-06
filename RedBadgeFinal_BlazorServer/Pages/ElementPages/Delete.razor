@@ -1,0 +1,57 @@
+﻿@page "/element/delete/{ElementId:int}"
+
+@inject IElementService _elementService
+@inject NavigationManager _navManager
+
+<h3>Delete Element:</h3>
+<h4 class="text-danger">Are you sure you want to DELETE this Element?</h4>
+<hr />
+
+@if (errorMessage != null)
+{
+	<p class="text-danger">@errorMessage</p>
+}
+
+@if (elementDetail is null)
+{
+	<p class="text-warning">Sorry, there isn't any available info.</p>
+}
+else
+{
+	<div class="container">
+		<div class="card">
+			<div class="card-header d-flex justify-content-between">
+				<span>Element #@elementDetail.Id</span>
+				<span class="text-muted">@elementDetail.Type</span>
+			</div>
+		</div>
+	</div>
+
+	<EditForm Model="@elementDetail" OnValidSubmit="@DeleteElement">
+		<button type="submit" class="btn btn-danger m-3">Delete</button>
+	</EditForm>
+}
+
+@code {
+	[Parameter]
+	public int ElementId { get; set; }
+
+	public ElementDetail? elementDetail { get; set; }
+	public string? errorMessage{ get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		elementDetail = await _elementService.GetElement(ElementId);
+	}
+
+	public async Task DeleteElement()
+	{
+		var isSuccess = await _elementService.DeleteElement(ElementId);
+		if (isSuccess)
+			_navManager.NavigateTo("/element");
+		else
+		{
+			errorMessage = "Deletion Failed.";
+		}
+	}
+}

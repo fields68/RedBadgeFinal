@@ -1,0 +1,60 @@
+﻿@page "/character/delete/{CharacterId:int}"
+
+@attribute [Authorize]
+@inject ICharacterService _characterService
+@inject IElementService _elementService
+@inject IRegionService _regionService
+@inject IWeaponService _weaponService
+@inject NavigationManager _navManager
+
+<h3>Character Details:</h3>
+<hr />
+
+@if (errorMessage != null)
+{
+	<p class="text-danger">@errorMessage</p>
+}
+
+@if (characterDetail is null)
+{
+	<p class="text-warning">Sorry, there isn't any available info.</p>
+}
+else
+{
+	<div class="container">
+		<div class="card">
+			<div class="card-header d-flex justify-content-between">
+				<span>Character #@characterDetail.Id</span>
+				<span class="text-muted">@characterDetail.Name</span>
+			</div>
+		</div>
+	</div>
+
+	<EditForm Model="@characterDetail" OnValidSubmit="@DeleteCharacter">
+		<button type="submit" class="btn btn-danger m-3">Delete</button>
+	</EditForm>
+}
+
+@code {
+	[Parameter]
+	public int CharacterId { get; set; }
+
+	public CharacterDetail? characterDetail { get; set; }
+	public string? errorMessage { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		characterDetail = await _characterService.GetCharacter(CharacterId);
+	}
+
+	public async Task DeleteCharacter()
+	{
+		var isSuccess = await _characterService.DeleteCharacter(CharacterId);
+		if (isSuccess)
+			_navManager.NavigateTo("/character");
+		else
+		{
+			errorMessage = "Deletion Failed.";
+		}
+	}
+}

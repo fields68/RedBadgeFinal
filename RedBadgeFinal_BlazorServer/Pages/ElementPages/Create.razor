@@ -1,0 +1,40 @@
+﻿@page "/element/create"
+
+@inject IElementService _elementService
+@inject NavigationManager _navManager
+
+<h3>Create Element:</h3>
+<hr />
+
+@if(errorMessage != null)
+{
+	<h5 class="text-danger">@errorMessage</h5>
+}
+else
+{
+	<div class="container">
+		<EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+			<DataAnnotationsValidator/>
+			<ValidationSummary/>
+			<div class="form-group">
+				<label>Element Type:</label>
+				<InputText class="form-control" @bind-Value="model.Type"/>
+			</div>
+			<button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+		</EditForm>
+	</div>
+}
+
+@code {
+	private ElementCreate model = new();
+	private string? errorMessage;
+
+	public async Task HandleSubmit()
+	{
+		var isSuccess = await _elementService.CreateElement(model);
+		if (isSuccess)
+			_navManager.NavigateTo("/element");
+		else
+			errorMessage = "Could not create your Element right now. Please try again later.";
+	}
+}

@@ -1,11 +1,11 @@
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
+using RedBadgeFinal.Data.Data;
+using RedBadgeFinal.Services.BusinessLogic;
+using RedBadgeFinal.Services.BusinessLogic.IServices;
+using RedBadgeFinal.Services.Configurations;
 using RedBadgeFinal_BlazorServer.Areas.Identity;
-using RedBadgeFinal_BlazorServer.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +20,12 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddAutoMapper(typeof(MappingConfigurations));
+builder.Services.AddScoped<ICharacterService, CharacterServices>();
+builder.Services.AddScoped<IRegionService, RegionServices>();
+builder.Services.AddScoped<IWeaponService, WeaponServices>();
+builder.Services.AddScoped<IElementService, ElementServices>();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

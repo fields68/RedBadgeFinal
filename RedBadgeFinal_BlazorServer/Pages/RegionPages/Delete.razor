@@ -1,0 +1,57 @@
+﻿@page "/region/delete/{RegionId:int}"
+
+@inject IRegionService _regionService
+@inject NavigationManager _navManager
+
+<h3>Delete Region:</h3>
+<h4 class="text-danger">Are you sure you want to DELETE this Region?</h4>
+<hr />
+
+@if (errorMessage != null)
+{
+	<p class="text-danger">@errorMessage</p>
+}
+
+@if (regionDetail is null)
+{
+	<p class="text-warning">Sorry, there isn't any available info.</p>
+}
+else
+{
+	<div class="container">
+		<div class="card">
+			<div class="card-header d-flex justify-content-between">
+				<span>Region #@regionDetail.Id</span>
+				<span class="text-muted">@regionDetail.Name</span>
+			</div>
+		</div>
+	</div>
+
+	<EditForm Model="@regionDetail" OnValidSubmit="@DeleteRegion">
+		<button type="submit" class="btn btn-danger m-3">Delete</button>
+	</EditForm>
+}
+
+@code {
+	[Parameter]
+	public int RegionId { get; set; }
+
+	public RegionDetail? regionDetail { get; set; }
+	public string? errorMessage { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		regionDetail = await _regionService.GetRegion(RegionId);
+	}
+
+	public async Task DeleteRegion()
+	{
+		var isSuccess = await _regionService.DeleteRegion(RegionId);
+		if (isSuccess)
+			_navManager.NavigateTo("/region");
+		else
+		{
+			errorMessage = "Deletion Failed.";
+		}
+	}
+}

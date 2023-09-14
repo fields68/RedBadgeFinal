@@ -1,0 +1,56 @@
+﻿@page "/region/edit/{RegionId:int}"
+
+@inject IRegionService _regionService
+@inject NavigationManager _navManager
+
+<h3>Edit Region:</h3>
+<hr />
+
+@if (errorMessage != null)
+{
+	<h5 class="text-danger">@errorMessage</h5>
+}
+else
+{
+	<div class="container">
+		<EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+			<DataAnnotationsValidator />
+			<ValidationSummary />
+			<div class="form-group">
+				<label>Region Name:</label>
+				<InputText class="form-control" @bind-Value="model.Name" />
+			</div>
+			<button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+			<a href="/region" class="btn btn-secondary btn-block mt-5">Back to List</a>
+			<a href="/region/delete/@RegionId" class="btn btn-danger btn-block mt-5">Delete</a>
+		</EditForm>
+	</div>
+}
+
+@code {
+	[Parameter]
+	public int RegionId { get; set; }
+	private RegionEdit model = new();
+	private RegionDetail _regionDetail = new();
+
+	private string? errorMessage;
+
+	protected override async Task OnInitializedAsync()
+	{
+		_regionDetail = await _regionService.GetRegion(RegionId);
+
+		if (_regionDetail != null)
+		{
+			model.Id = _regionDetail.Id;
+			model.Name = _regionDetail.Name;
+		}
+	}
+	public async Task HandleSubmit()
+	{
+		var isSuccess = await _regionService.UpdateRegion(model);
+		if (isSuccess)
+			_navManager.NavigateTo("/region");
+		else
+			errorMessage = "Could not Update your Region right now. Please try again.";
+	}
+}

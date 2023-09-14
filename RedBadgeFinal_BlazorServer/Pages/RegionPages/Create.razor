@@ -1,0 +1,40 @@
+﻿@page "/region/create"
+
+@inject IRegionService _regionService
+@inject NavigationManager _navManager
+
+<h3>Create Region</h3>
+<hr />
+
+@if (errorMessage != null)
+{
+	<h5 class="text-danger">@errorMessage</h5>
+}
+else
+{
+	<div class="container">
+		<EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+			<DataAnnotationsValidator />
+			<ValidationSummary />
+			<div class="form-group">
+				<label>Region Name:</label>
+				<InputText class="form-control" @bind-Value="model.Name" />
+			</div>
+			<button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+		</EditForm>
+	</div>
+}
+
+@code {
+	private RegionCreate model = new();
+	private string? errorMessage;
+
+	public async Task HandleSubmit()
+	{
+		var isSuccess = await _regionService.CreateRegion(model);
+		if (isSuccess)
+			_navManager.NavigateTo("/region");
+		else
+			errorMessage = "Could not create your Region right now. Please try again later.";
+	}
+}

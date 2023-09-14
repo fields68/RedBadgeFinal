@@ -1,0 +1,128 @@
+﻿@page "/character/edit/{CharacterId:int}"
+
+@attribute [Authorize]
+@inject ICharacterService _characterService
+@inject IElementService _elementService
+@inject IRegionService _regionService
+@inject IWeaponService _weaponService
+@inject NavigationManager _navManager
+
+<h3>Edit</h3>
+<hr />
+
+@if (errorMessage != null)
+{
+	<h5 class="text-danger">@errorMessage</h5>
+}
+else
+{
+	<EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+		<DataAnnotationsValidator />
+		<ValidationSummary />
+		<div class="form-group">
+			<label>Name</label>
+			<InputText class="form-control" @bind-Value="model.Name" />
+		</div>
+		<div class="form-group">
+			<label>Description</label>
+			<InputTextArea class="form-control" @bind-Value="model.Description" />
+		</div>
+		<div class="form-group">
+			<label>Element:</label>
+
+			@if (Elements == null)
+			{
+				<p>No available Elements to choose.</p>
+			}
+			else
+			{
+				<InputSelect @bind-Value="model.ElementId" class="form-select">
+					<option value="0" disabled="disabled" selected>~~ Select Element ~~</option>
+					@foreach (var element in Elements)
+					{
+						<option value="@element.Id">@element.Type</option>
+					}
+				</InputSelect>
+			}
+		</div>
+		<div class="form-group">
+			<label>Region:</label>
+
+			@if (Regions == null)
+			{
+				<p>No available Regions to choose.</p>
+			}
+			else
+			{
+				<InputSelect @bind-Value="model.RegionId" class="form-select">
+					<option value="0" disabled="disabled" selected>~~ Select Region ~~</option>
+					@foreach (var region in Regions)
+					{
+						<option value="@region.Id">@region.Name</option>
+					}
+				</InputSelect>
+			}
+		</div>
+		<div class="form-group">
+			<label>Weapon:</label>
+
+			@if (Weapons == null)
+			{
+				<p>No available Weapons to choose.</p>
+			}
+			else
+			{
+				<InputSelect @bind-Value="model.WeaponId" class="form-select">
+					<option value="0" disabled="disabled" selected>~~ Select Weapon ~~</option>
+					@foreach (var weapon in Weapons)
+					{
+						<option value="@weapon.Id">@weapon.Type</option>
+					}
+				</InputSelect>
+			}
+		</div>
+		<button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+		<a href="/character" class="btn btn-secondary btn-block mt-5">Back to List</a>
+		<a href="/character/delete/@CharacterId" class="btn btn-danger btn-block mt-5">Delete</a>
+	</EditForm>
+}
+
+@code {
+	[Parameter]
+	public int CharacterId { get; set; }
+	private CharacterEdit model = new();
+	private CharacterDetail _characterDetail = new();
+
+	private List<ElementListItem>? Elements;
+	private List<RegionListItem>? Regions;
+	private List<WeaponListItem>? Weapons;
+
+	private string? errorMessage;
+
+	protected override async Task OnInitializedAsync()
+	{
+		_characterDetail = await _characterService.GetCharacter(CharacterId);
+
+		if (_characterDetail != null)
+		{
+			model.Id = _characterDetail.Id;
+			model.Name = _characterDetail.Name;
+			model.Description = _characterDetail.Description;
+			model.WeaponId = _characterDetail.Weapon.Id;
+			model.ElementId = _characterDetail.Element.Id;
+			model.RegionId = _characterDetail.Region.Id;
+		}
+
+		Elements = await _elementService.GetElements();
+		Weapons = await _weaponService.GetWeapons();
+		Regions = await _regionService.GetRegions();
+	}
+	public async Task HandleSubmit()
+	{
+		var isSuccess = await _characterService.UpdateCharacter(model);
+		if (isSuccess)
+			_navManager.NavigateTo("/character");
+		else
+			errorMessage = "Could no update your Character right now. Please try again.";
+	}
+}

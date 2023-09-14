@@ -1,0 +1,49 @@
+﻿@page "/weapon"
+
+@inject IWeaponService _weaponService
+
+<h3>Weapons</h3>
+<a href="/weapon/create" class="btn btn-primary">Create a Weapon</a>
+<hr />
+
+@if (Weapons.Count() > 0)
+{
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Type</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var weapon in Weapons)
+			{
+				<tr>
+					<td>@weapon.Id</td>
+					<td>@weapon.Type</td>
+					<td>
+						<a href="/search/weapon/@weapon.Id" class="btn btn-success">Characters</a>
+						<a href="/weapon/edit/@weapon.Id" class="btn btn-success">Edit</a>
+						<a href="/weapon/detail/@weapon.Id" class="btn btn-warning">Details</a>
+						<a href="/weapon/delete/@weapon.Id" class="btn btn-danger">Delete</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+else
+{
+	<p class="text-danger">Sorry, there are no avilable Weapons at this time.</p>
+}
+@code {
+
+	public List<WeaponListItem> Weapons = new();
+
+	protected override async Task OnInitializedAsync()
+	{
+		Weapons = await _weaponService.GetWeapons();
+	}
+
+}

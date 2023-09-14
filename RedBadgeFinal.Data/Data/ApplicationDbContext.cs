@@ -97,17 +97,17 @@ namespace RedBadgeFinal.Data.Data
 					new Weapon
 					{
 						Id = 1,
-						Type = "Swords"
+						Type = "Sword"
 					},
 					new Weapon
 					{
 						Id = 2,
-						Type = "Claymores"
+						Type = "Claymore"
 					},
 					new Weapon
 					{
 						Id = 3,
-						Type = "Polearms"
+						Type = "Polearm"
 					},
 					new Weapon
 					{
@@ -117,7 +117,7 @@ namespace RedBadgeFinal.Data.Data
 					new Weapon
 					{
 						Id = 5,
-						Type = "Bows"
+						Type = "Bow"
 					}
 				);
 		}

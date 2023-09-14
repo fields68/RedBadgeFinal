@@ -8,6 +8,9 @@ namespace RedBadgeFinal.Services.BusinessLogic.IServices
         Task<bool> UpdateCharacter(CharacterEdit model);
         Task<bool> DeleteCharacter(int id);
         Task<CharacterDetail> GetCharacter(int id);
+		Task<List<CharacterListItem>> GetCharactersbyRegion(int Regionid);
+		Task<List<CharacterListItem>> GetCharactersbyElement(int Elementid);
+		Task<List<CharacterListItem>> GetCharactersbyWeapon(int Weaponid);
         Task<List<CharacterListItem>> GetCharacters();
     }
 }

@@ -1,4 +1,4 @@
-﻿@page "/character"
+﻿@page "/search/weapon/{WeaponId:int}"
 
 @attribute [Authorize]
 @inject ICharacterService _characterService
@@ -6,9 +6,7 @@
 @inject IWeaponService _weaponService
 @inject IRegionService _regionService
 
-<h3>Characters</h3>
-<a href="/character/create" class="btn btn-primary">Create a Character</a>
-<hr />
+<h3>@GetWeapInfo(WeaponId) Characters</h3>
 
 @if (Characters.Count() > 0)
 {
@@ -27,23 +25,36 @@
 		<tbody>
 			@foreach (var character in Characters)
 			{
-				
-				<tr>
-					<td>@character.Id</td>
-					<td>@character.Name</td>
-					<td>@character.Description</td>
-					<td>@GetElemInfo(character.ElementId)</td>
-					<td>@GetWeapInfo(character.WeaponId)</td>
-					<td>@GetRegiInfo(character.RegionId)</td>
-					<td>
-						<a href="/character/edit/@character.Id" class="btn btn-success">Edit</a>
-						<a href="/character/detail/@character.Id" class="btn btn-warning">Details</a>
-						<a href="/character/delete/@character.Id" class="btn btn-danger">Delete</a>
-					</td>
-				</tr>
+				@if (character.WeaponId == WeaponId)
+				{
+					charVar = true;
+					<tr>
+						<td>@character.Id</td>
+						<td>@character.Name</td>
+						<td>@character.Description</td>
+						<td>@GetElemInfo(character.ElementId)</td>
+						<td>@GetWeapInfo(character.WeaponId)</td>
+						<td>@GetRegiInfo(character.RegionId)</td>
+						<td>
+							<a href="/character/edit/@character.Id" class="btn btn-success">Edit</a>
+							<a href="/character/detail/@character.Id" class="btn btn-warning">Details</a>
+							<a href="/character/delete/@character.Id" class="btn btn-danger">Delete</a>
+						</td>
+					</tr>
+				}
+				else
+				{ }
 			}
+			@if (charVar == false)
+			{
+				<p class="text-danger">There are no Characters with this weapon.</p>
+			}
+			else
+			{ }
 		</tbody>
 	</table>
+
+	<a href="/weapon" class="btn btn-secondary btn-block mt-5">Back to List</a>
 }
 else
 {
@@ -52,11 +63,14 @@ else
 
 
 @code {
-
 	private List<CharacterListItem> Characters = new();
 	public List<ElementListItem> Elements = new();
 	public List<WeaponListItem> Weapons = new();
 	public List<RegionListItem> Regions = new();
+
+	[Parameter]
+	public int WeaponId { get; set; }
+	public bool charVar = false;
 
 	protected override async Task OnInitializedAsync()
 	{

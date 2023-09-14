@@ -83,7 +83,25 @@ namespace RedBadgeFinal.Services.BusinessLogic
             return _mapper.Map<List<CharacterListItem>>(chara);
         }
 
-        public async Task<bool> UpdateCharacter(CharacterEdit model)
+		public async Task<List<CharacterListItem>> GetCharactersbyElement(int Elementid)
+		{
+			var character = await _context.Characters.Where(x => x.ElementId == Elementid).ToListAsync();
+			return _mapper.Map<List<CharacterListItem>>(character);
+		}
+
+		public async Task<List<CharacterListItem>> GetCharactersbyRegion(int Regionid)
+		{
+			var character = await _context.Characters.Where(x => x.RegionId == Regionid).ToListAsync();
+			return _mapper.Map<List<CharacterListItem>>(character);
+		}
+
+		public async Task<List<CharacterListItem>> GetCharactersbyWeapon(int Weaponid)
+		{
+			var character = await _context.Characters.Where(x => x.WeaponId == Weaponid).ToListAsync();
+			return _mapper.Map<List<CharacterListItem>>(character);
+		}
+
+		public async Task<bool> UpdateCharacter(CharacterEdit model)
         {
             var chara = await _context.Characters
                 .Where(c => c.OwnerId == _ownerId)

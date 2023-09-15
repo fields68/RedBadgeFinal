@@ -6,6 +6,24 @@
 <a href="/region/create" class="btn btn-primary">Create a Region</a>
 <hr />
 
+<style>
+	body {
+		background-image: linear-gradient(#081252, #a79ecd);
+	}
+
+	h3 {
+		color: #a79ecd;
+	}
+
+	table {
+		background-color: #a79ecd;
+	}
+
+	tr:hover {
+		background-color: antiquewhite;
+	}
+</style>
+
 @if (Regions.Count() > 0)
 {
 	<table class="table table-striped">
@@ -13,6 +31,9 @@
 			<tr>
 				<th>Id</th>
 				<th>Type</th>
+				<th></th>
+				<th></th>
+				<th></th>
 				<th></th>
 			</tr>
 		</thead>
@@ -22,12 +43,10 @@
 				<tr>
 					<td>@region.Id</td>
 					<td>@region.Name</td>
-					<td>
-						<a href="/search/region/@region.Id" class="btn btn-success">Characters</a>
-						<a href="/region/edit/@region.Id" class="btn btn-success">Edit</a>
-						<a href="/region/detail/@region.Id" class="btn btn-warning">Details</a>
-						<a href="/region/delete/@region.Id" class="btn btn-danger">Delete</a>
-					</td>
+					<td><a href="/search/region/@region.Id" class="btn btn-info">Characters</a></td>
+					<td><a href="/region/edit/@region.Id" class="btn btn-success">Edit</a></td>
+					<td><a href="/region/detail/@region.Id" class="btn btn-warning">Details</a></td>
+					<td><a href="/region/delete/@region.Id" class="btn btn-danger">Delete</a></td>
 				</tr>
 			}
 		</tbody>

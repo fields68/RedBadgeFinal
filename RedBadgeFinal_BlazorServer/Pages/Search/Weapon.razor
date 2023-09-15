@@ -8,6 +8,24 @@
 
 <h3>@GetWeapInfo(WeaponId) Characters</h3>
 
+<style>
+	body {
+		background-image: linear-gradient(#081252, #a79ecd);
+	}
+
+	h3 {
+		color: #a79ecd;
+	}
+
+	table {
+		background-color: #a79ecd;
+	}
+
+	tr:hover {
+		background-color: antiquewhite;
+	}
+</style>
+
 @if (Characters.Count() > 0)
 {
 	<table class="table table-striped">
@@ -19,6 +37,8 @@
 				<th>Element</th>
 				<th>Weapon</th>
 				<th>Region</th>
+				<th></th>
+				<th></th>
 				<th></th>
 			</tr>
 		</thead>
@@ -35,11 +55,9 @@
 						<td>@GetElemInfo(character.ElementId)</td>
 						<td>@GetWeapInfo(character.WeaponId)</td>
 						<td>@GetRegiInfo(character.RegionId)</td>
-						<td>
-							<a href="/character/edit/@character.Id" class="btn btn-success">Edit</a>
-							<a href="/character/detail/@character.Id" class="btn btn-warning">Details</a>
-							<a href="/character/delete/@character.Id" class="btn btn-danger">Delete</a>
-						</td>
+						<td><a href="/character/edit/@character.Id" class="btn btn-success">Edit</a></td>
+						<td><a href="/character/detail/@character.Id" class="btn btn-warning">Details</a></td>
+						<td><a href="/character/delete/@character.Id" class="btn btn-danger">Delete</a></td>						
 					</tr>
 				}
 				else

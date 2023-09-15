@@ -6,6 +6,24 @@
 <a href="/element/create" class="btn btn-primary">Create an Element</a>
 <hr />
 
+<style>
+	body {
+		background-image: linear-gradient(#081252, #a79ecd);
+	}
+
+	h3 {
+		color: #a79ecd;
+	}
+
+	table {
+		background-color: #a79ecd;
+	}
+
+	tr:hover {
+		background-color: antiquewhite;
+	}
+</style>
+
 @if (Elements.Count() > 0)
 {
 	<table class="table table-striped">
@@ -13,6 +31,9 @@
 			<tr>
 				<th>Id</th>
 				<th>Type</th>
+				<th></th>
+				<th></th>
+				<th></th>
 				<th></th>
 			</tr>
 		</thead>
@@ -22,12 +43,10 @@
 				<tr>
 					<td>@element.Id</td>
 					<td>@element.Type</td>
-					<td>
-						<a href="/search/element/@element.Id" class="btn btn-info">Characters</a>
-						<a href="/element/edit/@element.Id" class="btn btn-success">Edit</a>
-						<a href="/element/detail/@element.Id" class="btn btn-warning">Details</a>
-						<a href="/element/delete/@element.Id" class="btn btn-danger">Delete</a>
-					</td>
+					<td><a href="/search/element/@element.Id" class="btn btn-info">Characters</a></td>
+					<td><a href="/element/edit/@element.Id" class="btn btn-success">Edit</a></td>
+					<td><a href="/element/detail/@element.Id" class="btn btn-warning">Details</a></td>
+					<td><a href="/element/delete/@element.Id" class="btn btn-danger">Delete</a></td>					
 				</tr>
 			}
 		</tbody>
